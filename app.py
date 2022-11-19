@@ -28,7 +28,30 @@ def home():
                            link=list(popular_df['book-link'].values)
                            )
                            
+@app.route("/recommender")
+def post():
+    return render_template('recommender.html')
 
+
+@app.route("/recommend_books", methods=["POST"])
+def recommend():
+    user_input = request.form.get('user_input')
+    index = np.where(pt.index == user_input)[0][0]  # calculating index of a book
+    similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[
+                    0:6]  # similarity of 1984 book with other books
+
+    data = []
+    for i in similar_items:
+        item = []
+        temp_df = books[books['Book-Title'] == pt.index[i[0]]]
+        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
+        item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
+        item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
+        item.extend(list(temp_df.drop_duplicates('Book-Title')['book-link'].values))
+
+        data.append(item)
+    print(data)
+    return render_template('recommender.html',data=data)
 
 
 if __name__ =="__main__":

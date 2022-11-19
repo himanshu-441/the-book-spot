@@ -1,50 +1,72 @@
 {% extends"layout.html" %}
 {% block body %}
 
-         <header">
-           
 
 
-                         <form action="/recommend_books" method="post">
-                             <input name="user_input" type="text" class="form-control" placeholder=" Search" ><br>
-                             <input type="Submit" class="btn btn-lg btn-warning">
-                         </form>
+<div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="post-heading">
+                <h1></h1>
+                <h2 class="subheading"></h2>
+                <span class="meta">
 
 
-                  
-        </header>
+                    <form action="/recommend_books" method="post">
+                        <input name="user_input" type="text" class="form-control" placeholder=" Search"><br>
+                        <input type="Submit" class="btn btn-lg btn-warning">
+                    </form>
+
+
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 {% if data %}
-        <div class="container">
-                <div class="row">
-                    <div class="col-12" style="margin-left: 390px">
-                        <h1 style="font-size: 40px">Recommended Books</h1>
-                    </div>
+<h1 class="heading"> <span>top 50 books</span> </h1>
 
 
+    <div class="swiper featured-slider">
 
-                       {% for i in data %}
+        <div class="swiper-wrapper">
 
-                         <div class="col-md-2" style="margin-top: 60px">
-                            <div class="card">
-                               <div class="card-body">
-                                   <img class="card-image-top" src=" {{i[2]}} ">
-                                    <p> </p>
-                                   <h3 style="font-size: 11px"><a href="{{i[3]}}">    {{i[0]}}   </a></h3>
-                                   <p> </p>
-                                   <h3 style="font-size: 11px">By : {{i[1]}}</h3>
-                               </div>
-                            </div>
-                         </div>
+            
 
-                        {% endfor %}
+        {% for i in data %}
 
-                    {% endif %}
+        <div class="swiper-slide box">
+            
+            <div class="image">
+                <img src="{{ i[2] }}" alt="">
+            </div>
+            <div class="content">
+                <h3 style="font-size: 14px">  {{ i[0]  }} </h3>
+                <h3 style="font-size: 14px">  {{ i[1]  }} </h3>
+                <div class="price">$15.99 <span>$20.99</span></div>
+                <a href="{{  i[3] }}" class="btn">Go to book</a>
+            </div>
         </div>
-             </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+</div>
+
+        {% endif %}
+    </div>
+</div>
 
 
 
-         {% endblock %}
+
+
+
+{% endblock %}
