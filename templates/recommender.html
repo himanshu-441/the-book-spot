@@ -1,0 +1,50 @@
+{% extends"layout.html" %}
+{% block body %}
+
+         <header">
+           
+
+
+                         <form action="/recommend_books" method="post">
+                             <input name="user_input" type="text" class="form-control" placeholder=" Search" ><br>
+                             <input type="Submit" class="btn btn-lg btn-warning">
+                         </form>
+
+
+                  
+        </header>
+
+
+
+{% if data %}
+        <div class="container">
+                <div class="row">
+                    <div class="col-12" style="margin-left: 390px">
+                        <h1 style="font-size: 40px">Recommended Books</h1>
+                    </div>
+
+
+
+                       {% for i in data %}
+
+                         <div class="col-md-2" style="margin-top: 60px">
+                            <div class="card">
+                               <div class="card-body">
+                                   <img class="card-image-top" src=" {{i[2]}} ">
+                                    <p> </p>
+                                   <h3 style="font-size: 11px"><a href="{{i[3]}}">    {{i[0]}}   </a></h3>
+                                   <p> </p>
+                                   <h3 style="font-size: 11px">By : {{i[1]}}</h3>
+                               </div>
+                            </div>
+                         </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+        </div>
+             </div>
+
+
+
+         {% endblock %}
