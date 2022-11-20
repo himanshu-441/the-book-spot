@@ -41,11 +41,12 @@
 
     <div class="header-2">
         <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#top-50-books">top-50-books</a>
-            <a href="#arrivals">arrivals</a>
-            <a href="#reviews">reviews</a>
+            <a href="/">home</a>
+            <a href="/#top-50-books">top-50-books</a>
+            <a href="/#arrivals">arrivals</a>
+            <a href="/#reviews">reviews</a>
             <a  href="/recommender">Recommender</a>
+            <a  href="/books">Books</a>
         </nav>
     </div>
 
@@ -86,21 +87,19 @@
     <div class="row">
 
         <div class="content">
-            <h3>upto 75% off</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deserunt nostrum accusamus. Nam alias sit necessitatibus, aliquid ex minima at!</p>
-            <a href="#" class="btn">shop now</a>
+            <h3>There is no friend as loyal as a Book</h3>
         </div>
 
         <div class="swiper books-slider">
             <div class="swiper-wrapper">
-                <a href="#" class="swiper-slide"><img src="image/book-1.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="image/book-2.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="image/book-3.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="image/book-4.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="image/book-5.png" alt=""></a>
-                <a href="#" class="swiper-slide"><img src="image/book-6.png" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-1.png')}}" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-2.png')}}" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-3.png')}}" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-4.png')}}" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-5.png')}}" alt=""></a>
+                <a href="#" class="swiper-slide"><img src="{{url_for('static', filename='image/book-6.png')}}" alt=""></a>
             </div>
-            <img src="image/stand.png" class="stand" alt="">
+            <img src="{{url_for('static', filename='image/stand.png')}}" class="stand" alt="">
         </div>
 
     </div>
@@ -119,11 +118,11 @@
     
             <div class="box">
                 <h3>quick links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> home </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> featured </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> arrivals </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> reviews </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> blogs </a>
+                <a href="/"> <i class="fas fa-arrow-right"></i> home </a>
+                <a href="/#featured"> <i class="fas fa-arrow-right"></i> featured </a>
+                <a href="/#arrivals"> <i class="fas fa-arrow-right"></i> arrivals </a>
+                <a href="/#reviews"> <i class="fas fa-arrow-right"></i> reviews </a>
+                <a href="/recommender"> <i class="fas fa-arrow-right"></i> recommender </a>
             </div>
     
     

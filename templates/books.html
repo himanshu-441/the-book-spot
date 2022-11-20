@@ -1,0 +1,34 @@
+{% extends"layout.html" %}
+{% block body %}
+<br/>
+<br/>
+<div class="container">
+    <h1>Books...</h1>
+<br/>
+<form action="/books"  method="post">
+    <input type="text"  placeholder="Name" name="name"> 
+    <input type="text"  placeholder="Author" name="author">
+    <input type="text"  placeholder="Category" name="category">
+    <input type="text"  placeholder="Language" name="language">
+    <input type="number"  placeholder="Arrival year" name="arrival"> 
+    <input type="text"  placeholder="Link" name="link">
+    <input type="text"  placeholder="Image" name="image">
+    <input type="submit" value="Add Name" class="btn">
+
+</form>
+
+
+{% for book in books%}
+<h3>{{book.name}}</h3>
+
+{% endfor%}
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

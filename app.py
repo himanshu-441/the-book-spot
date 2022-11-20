@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import pickle
 import numpy as np
@@ -6,19 +6,56 @@ import numpy as np
 
 popular_df = pickle.load(open('popular.pkl','rb'))
 pt = pickle.load(open('pts1.pkl','rb'))
-books = pickle.load(open('books1.pkl','rb'))
+books2 = pickle.load(open('books1.pkl','rb'))
 similarity_scores =  pickle.load(open('similarity_scores1.pkl','rb'))
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/the_book_spot'
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///the-book-spot.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 #app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://jdisqjmqyuohdm:8ae04cc8944b2f821fcdbb4f729e5aa0c51cfa0ed465f7ef03d8f14111f48766@ec2-18-209-78-11.compute-1.amazonaws.com:5432/d3v3bf86878p97"
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 
+class Books(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    language = db.Column(db.String(50), nullable=False)
+    arrival = db.Column(db.Integer, nullable=False)
+    link = db.Column(db.String(200), nullable=True)
+    image = db.Column(db.String(200), nullable=True)
+
+
+    def __repr__(self) -> str:
+        return f"{self.sno} - {self.name} - {self.author}"
+
+
+
+
+@app.route('/books', methods=['POST', 'GET'])
+def books():
+    if request.method == 'POST':
+        book_name = request.form['name']
+        book_author = request.form['author']
+        category = request.form['category']
+        language = request.form['language']
+        arrival = request.form['arrival']
+        link = request.form['link']
+        image = request.form['image']
+        book=Books(name=book_name, author=book_author, category=category, language=language, link=link,arrival= arrival, image=image)
+        db.session.add(book)
+        db.session.commit()
+        return redirect("/books")
+    else:
+        return render_template("books.html")
 
 
 @app.route("/")
 def home():
+    books=Books.query.all()
+    new_arrival=Books.query.filter(Books.arrival>=2022).all()
     return render_template('index.html',
                            book_name=list(popular_df['Book-Title'].values),
                            author=list(popular_df['Book-Author'].values),
@@ -26,7 +63,7 @@ def home():
                            votes=list(popular_df['num_ratings'].values),
                            rating=list(popular_df['avg_ratings'].values),
                            link=list(popular_df['book-link'].values)
-                           )
+                           , books=books, new_arrival=new_arrival)
                            
 @app.route("/recommender")
 def post():
@@ -43,7 +80,7 @@ def recommend():
     data = []
     for i in similar_items:
         item = []
-        temp_df = books[books['Book-Title'] == pt.index[i[0]]]
+        temp_df = books2[books2['Book-Title'] == pt.index[i[0]]]
         item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
         item.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
         item.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))

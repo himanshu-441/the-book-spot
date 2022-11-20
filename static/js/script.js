@@ -99,8 +99,12 @@ var swiper = new Swiper(".arrivals-slider", {
   loop:true,
   centeredSlides: true,
   autoplay: {
-    delay: 9500,
+    delay: 300,
     disableOnInteraction: false,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
   },
   breakpoints: {
     0: {
