@@ -31,7 +31,15 @@ class Books(db.Model):
     def __repr__(self) -> str:
         return f"{self.sno} - {self.name} - {self.author}"
 
-
+@app.route('/books_category', methods=['POST', 'GET'])
+def category():
+    if request.method == 'POST':
+        category = request.form['category']
+        books=Books.query.filter(Books.category==category).all()
+        return render_template("books.html", books=books)
+    
+    else:
+        return render_template("books.html")
 
 
 @app.route('/books', methods=['POST', 'GET'])
