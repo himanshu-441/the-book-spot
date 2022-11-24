@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import pickle
 import numpy as np
+import os
+import re
+
 
 
 popular_df = pickle.load(open('popular.pkl','rb'))
@@ -13,9 +16,11 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///the-book-spot.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://mthwnkvmlsvjzp:ec522ca94a36167296640a3c861dc957da3d0ea3a5f41ee1d63dc5bc73807d89@ec2-44-205-177-160.compute-1.amazonaws.com:5432/d19lnnc3bfcl9n"
-db = SQLAlchemy(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://mthwnkvmlsvjzp:ec522ca94a36167296640a3c861dc957da3d0ea3a5f41ee1d63dc5bc73807d89@ec2-44-205-177-160.compute-1.amazonaws.com:5432/d19lnnc3bfcl9n"
 
+
+
+db = SQLAlchemy(app)
 
 class Books(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
