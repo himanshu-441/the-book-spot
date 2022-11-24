@@ -99,7 +99,7 @@ var swiper = new Swiper(".arrivals-slider", {
   loop:true,
   centeredSlides: true,
   autoplay: {
-    delay: 300,
+    delay: 5000,
     disableOnInteraction: false,
   },
   navigation: {
