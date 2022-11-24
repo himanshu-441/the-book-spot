@@ -1,4 +1,4 @@
-searchForm = document.querySelector('.search-form');
+/*searchForm = document.querySelector('.search-form');
 
 document.querySelector('#search-btn').onclick = () =>{
   searchForm.classList.toggle('active');
@@ -45,7 +45,7 @@ function loader(){
 function fadeOut(){
   setTimeout(loader, 4000);
 }
-
+*/
 var swiper = new Swiper(".books-slider", {
   loop:true,
   centeredSlides: true,
